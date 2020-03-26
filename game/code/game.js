@@ -59,17 +59,17 @@ var player_b = [{
 
 function preload() {
   thinPixel = loadFont('assets/ThinPixel7-1Yq0.ttf');  // loading font
-  img[1] = loadImage("../assets/01_bgx5.png");         // loading images
-  img[2] = loadImage("../assets/01_cannon.png");
-  img[3] = loadImage("../assets/01_cannonBalls.png");
-  img[4] = loadImage("../assets/01_cannonRestrainRope.png");
-  img[5] = loadImage("../assets/01_door.png");
-  img[6] = loadImage("../assets/01_grate.png");
-  img[7] = loadImage("../assets/01_keyhole.png");
-  img[8] = loadImage("../assets/01_ramrod.png");
-  img[9] = loadImage("../assets/01_rope.png");
-  img[10] = loadImage("../assets/01_smallPirate.png");
-  img[11] = loadImage("../assets/01_window.png");
+  img[1] = loadImage("assets/01_bgx5.png");         // loading images
+  img[2] = loadImage("assets/01_cannon.png");
+  img[3] = loadImage("assets/01_cannonBalls.png");
+  img[4] = loadImage("assets/01_cannonRestrainRope.png");
+  img[5] = loadImage("assets/01_door.png");
+  img[6] = loadImage("assets/01_grate.png");
+  img[7] = loadImage("assets/01_keyhole.png");
+  img[8] = loadImage("assets/01_ramrod.png");
+  img[9] = loadImage("assets/01_rope.png");
+  img[10] = loadImage("assets/01_smallPirate.png");
+  img[11] = loadImage("assets/01_window.png");
   // one way of loading spritesheet
   player_l2 = loadSpriteSheet('assets/00_guybrush.png', player_l);
   player_left = loadAnimation(player_l2);

@@ -39,8 +39,8 @@ function preload() {
   img[11] = loadImage("assets/01_window.png");
   // one way of loading spritesheet
   //a faster way of loading everything at once
-  playerSprS = loadSpriteSheet('assets/00_guybrush.png', 46, 130, 4);
-  toolSprS = loadSpriteSheet('assets/tools.png', 32, 32, 4);
+  playerSprS = loadSpriteSheet('assets/00_guybrush.png', 184/4, 130, 4);
+  toolSprS = loadSpriteSheet('assets/tools.png', 128/4, 32, 4);
 }
 
 function setup() {
@@ -50,48 +50,48 @@ function setup() {
   cx = int(width * .5);  //set center of the screen X
   cy = int(height * .5); //set center of the screen Y
 
-  bg01=createAnObject(0,0,img[1],"");
+  bg01=p5xgT_createAnObject(0,0,img[1],"");
 
   //create sprite and assign spritesheet for main character as well as click on functions
   guyBrush = createSprite(cx + 90, cy + 27);
-  guyBrush.addAnimation("playerSprites",playerSprS);
+  guyBrush.addAnimation("playerSprites",playerSprS); //p5.play function
   guyBrush.animation.stop();
-  roundPos(guyBrush);
+  p5xgT_roundPos(guyBrush);
   guyBrush.onMouseOver = function() {testo = "hello! it's me Guybrush!";}
   guyBrush.onMouseOut = function() {testo = "";}
 
   //create sprites and assign images as well as click on functions for each interactive object
-  windoww=createAnObject(-175,50,img[11],"window");
-  cannon=createAnObject(-136,62,img[2],"cannon");
-  cannonBalls=createAnObject(2,59,img[3],"cannon balls");
-  cannonRestrainRope=createAnObject(-154,67,img[4],"cannon restrain rope");
-  door=createAnObject(175,37,img[5],"door");
-  grate=createAnObject(8,-95,img[6],"grate");
-  keyhole=createAnObject(172,47,img[7],"keyhole");
-  ramrod=createAnObject(4,9,img[8],"ramrod");
-  rope=createAnObject(134,84,img[9],"rope");
-  smallPirate=createAnObject(-69,56,img[10],"small pirate");
+  windoww=p5xgT_createAnObject(-175,50,img[11],"window");
+  cannon=p5xgT_createAnObject(-136,62,img[2],"cannon");
+  cannonBalls=p5xgT_createAnObject(2,59,img[3],"cannon balls");
+  cannonRestrainRope=p5xgT_createAnObject(-154,67,img[4],"cannon restrain rope");
+  door=p5xgT_createAnObject(175,37,img[5],"door");
+  grate=p5xgT_createAnObject(8,-95,img[6],"grate");
+  keyhole=p5xgT_createAnObject(172,47,img[7],"keyhole");
+  ramrod=p5xgT_createAnObject(4,9,img[8],"ramrod");
+  rope=p5xgT_createAnObject(134,84,img[9],"rope");
+  smallPirate=p5xgT_createAnObject(-69,56,img[10],"small pirate");
 
   toolSpr = createSprite(0,0);
   toolSpr.addAnimation("toolSprites",toolSprS);
   toolSpr.animation.stop();
 
-  continueStory(true);
+  ink_continueStory(true);
 }
 
 function draw() {
   background(color('#F1BF46'));
 
   drawSprites();          //draw all the sprites
-  dialogue();             //empty function for now
-  tool();                 //shoud give the possibility of different type of interaction with objects
-  inventory();            //should allow the creation of inventory (not enabled yet)
-  setPosition(guyBrush);  //this allows the obj to be positioned with keyboard on screen
+  p5xgT_dialogue();             //empty function for now
+  p5xgT_tool();                 //shoud give the possibility of different type of interaction with objects
+  p5xgT_inventory();            //should allow the creation of inventory (not enabled yet)
+  p5xgT_setPosition(guyBrush);  //this allows the obj to be positioned with keyboard on screen
 
 }
 
 //---------------------- this is due to inky --------------------------------------------------------------------------------------
-function continueStory(firstTime) {
+function ink_continueStory(firstTime) {
         var paragraphIndex = 0;
         var delay = 0.0;
         while(story.canContinue) {
@@ -145,12 +145,12 @@ function continueStory(firstTime) {
 
 
 // function that shows the text for dialogues and other text info
-function dialogue() {
+function p5xgT_dialogue() {
   text(testo, cx - 170, cy - 120);
 }
 
 // function to select different tools
-function tool() {
+function p5xgT_tool() {
   if (keyDown('c')) {toolSel = 'c'; toolSpr.animation.changeFrame(0);} // inventory object
   if (keyDown('e')) {toolSel = 'e'; toolSpr.animation.changeFrame(1);}// examine-skull
   if (keyDown('t')) {toolSel = 't'; toolSpr.animation.changeFrame(2);} // talk-parrot
@@ -161,7 +161,7 @@ function tool() {
   toolSpr.position.y=mouseY;
 }
 
-function inventory() {
+function p5xgT_inventory() {
   if(showInventory) {
 
   }
@@ -171,7 +171,7 @@ function inventory() {
 // ----------------------------------------------------------------------------- Various Helper functions
 // -----------------------------------------------------------------------------
 
-function setPosition(obj) {
+function p5xgT_setPosition(obj) {
   if (keyDown('w')) {obj.position.y -= 1;guyBrush.animation.changeFrame(2);}
   if (keyDown('s')) {obj.position.y += 1;guyBrush.animation.changeFrame(3);}
   if (keyDown('a')) {obj.position.x -= 1;guyBrush.animation.changeFrame(0);}
@@ -180,19 +180,23 @@ function setPosition(obj) {
 }
 
 // function for rounding images to avoid split pixels alignemnt
-function roundPos(obj) {
+function p5xgT_roundPos(obj) {
   obj.position.x = int(obj.position.x);
   obj.position.y = int(obj.position.y);
 }
 
 // function that create the object and assign a text to them
-function createAnObject(dx, dy,img, addText){
+// dx: distance in x-axis from the center
+// dy: distance in y-axis from the center
+// img: image
+// caption: caption text
+function p5xgT_createAnObject(dx, dy,img, caption){
   var c = createSprite(cx + dx, cy + dy);
   c.addImage(img);
-  if(addText!="") {
-    c.onMouseOver = function() {testo = addText;}
+  if(caption!="") {
+    c.onMouseOver = function() {testo = caption;}
     c.onMouseOut = function() {testo = "";}
   }
-  roundPos(c);
+ p5xgT_roundPos(c);
   return c;
 }
